@@ -194,7 +194,6 @@
 				04DDC74872A96D1796A494BA /* Pods-rnDeepLinkingTests.debug.xcconfig */,
 				60FA56D2D0106620C27B191C /* Pods-rnDeepLinkingTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,6 +307,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
