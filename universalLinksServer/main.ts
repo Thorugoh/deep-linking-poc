@@ -15,7 +15,6 @@ async function handleHttp(conn:Deno.Conn) {
     try{
       file = await Deno.open("./universalLinksServer" + filepath, { read: true })
     }catch(err){
-
       const notFoundResponse = new Response("Not Found", { status: 404 })
       await requestEvent.respondWith(notFoundResponse)
       continue;
@@ -27,7 +26,11 @@ async function handleHttp(conn:Deno.Conn) {
     const readableStream = file.readable;
 
     // Build and send the response
-    const response = new Response(readableStream);
+    const response = new Response(readableStream, {
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
     await requestEvent.respondWith(response);
   }
 }
