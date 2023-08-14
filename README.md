@@ -12,7 +12,7 @@ The project is configured to open based on `deeplinking://` URI scheme, here you
 
 #### iOS 
 
-We need to link `RCTLinking` to the project. sicne this project is targeting iOS 11 (9.x or newer) we are going to add this to [`Project/ios/Project/AppDelegate.m`](/ios/rnDeepLinking/AppDelegate.m) 
+We need to link `RCTLinking` to the project. sicne this project is targeting iOS 11 (9.x or newer) we are going to add this to [`Project/ios/Project/AppDelegate.m`](rnDeeplinking/ios/rnDeepLinking/AppDelegate.m) 
 
 ```objective-c
   // Add the header at the top of the file:
@@ -37,7 +37,7 @@ To add it manually we open the project in xCode. Select the project in sidebar a
 #### Android
 To configure the external linking in Android, we create a new intent in the manifest.
 
-In this project we are adding it manually, so open [`Project/android/app/src/main/AndroidManifest.xml`](/android/app/src/main/AndroidManifest.xml) we made the following adjustments:
+In this project we are adding it manually, so open [`Project/android/app/src/main/AndroidManifest.xml`](rnDeeplinking/android/app/src/main/AndroidManifest.xml) we made the following adjustments:
 
 ```xml
   <activity
@@ -77,7 +77,7 @@ const config = {
 };
 
 const linking = {
-  prefixes: ['deeplinking://'],
+  prefixes: ['deeplinking://', "https://rich-seal-43.deno.dev/"],
   config,
 };
 
@@ -103,10 +103,15 @@ This will open app on second screen passing the param `id={001}`
 
 `xcrun simctl openurl booted deeplinking://screen/:001`
 
+To test using universal links
+`xcrun simctl openurl booted https://rich-seal-43.deno.dev/screen/:002`
+
 #### Android
 This will open app on second screen passing the param `id={002}`
 `adb shell am start -W -a android.intent.action.VIEW -d "deeplinking://screen/:002" com.rndeeplinking`
 
+To test using universal links
+`adb shell am start -W -a android.intent.action.VIEW -d https://rich-seal-43.deno.dev/screen/:002`
 
 #### Setup iOS Universal Links
 Add to `AppDelegate.m` the following code
@@ -141,4 +146,55 @@ We need to add to the intent filter the `android:autoVerify="true"` and add `<da
 </activity>
 ```
 
-![Alt text](image-1.png)
+## Backend
+
+
+In order to unversal links to work we need to serve some structured JSON to establish trust.
+
+### iOS
+
+Create a new file named `apple-app-site-association`.
+It **must** return a MIME type of application/json and contain no file type, i.e. do not add .json to the file name.
+```js
+{
+  "applinks": {
+    "apps": [
+      
+    ],
+    "details": [
+      {
+        //TeamID.BundleID
+        "appID": "KV5Q2MF8Z5.org.thorugoh.rnDeepLinking",
+        "paths": [
+          "*"
+        ]
+      }
+    ]
+  }
+}
+
+
+```
+To avoid repetition or having a separate config for iOS an Android, we’ll just handle paths with our logic in React Native.
+
+for this project the path will be served in
+[https://rich-seal-43.deno.dev/apple-app-site-association](https://rich-seal-43.deno.dev/apple-app-site-association)
+
+After making this file available it may take up to 48 hours for Apple’s CDN to scrape and validate when the app is first installed and a universal link is first used.
+
+
+### Android
+
+To begin, we need to create a ‘Digital Asset Links’ JSON file to be served from each subdomain we want to provide Deep Links to.
+
+Create a new file named assetlinks.json to be served from this folder: https://rich-seal-43.deno.dev/.well-known
+
+To generate assetLinks.json file on android
+![Android studio](image-1.png)
+
+
+## Redirecting to Store
+
+The universal link will redirect to web browser in case we don't have the app installed, so in order to navigate to app store we just need to serve a page with the path of the link that when accessed will redirect to the desired store.
+
+Here we have an example [page](/universalLinksServer/static/index.html)
