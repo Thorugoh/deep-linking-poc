@@ -50,7 +50,7 @@ const config = {
 };
 
 const linking = {
-  prefixes: ['deeplinking://'],
+  prefixes: ['deeplinking://', "https://rich-seal-43.deno.dev/"],
   config,
 };
 

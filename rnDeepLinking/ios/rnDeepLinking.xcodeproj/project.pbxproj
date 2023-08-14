@@ -56,6 +56,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = rnDeepLinking/main.m; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* rnDeepLinking-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "rnDeepLinking-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* rnDeepLinking-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "rnDeepLinking-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		46BA787D2A88E680002911FB /* rnDeepLinking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = rnDeepLinking.entitlements; path = rnDeepLinking/rnDeepLinking.entitlements; sourceTree = "<group>"; };
 		587AFD061DBBE96E42580CF8 /* Pods-rnDeepLinking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnDeepLinking.release.xcconfig"; path = "Target Support Files/Pods-rnDeepLinking/Pods-rnDeepLinking.release.xcconfig"; sourceTree = "<group>"; };
 		60FA56D2D0106620C27B191C /* Pods-rnDeepLinkingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rnDeepLinkingTests.release.xcconfig"; path = "Target Support Files/Pods-rnDeepLinkingTests/Pods-rnDeepLinkingTests.release.xcconfig"; sourceTree = "<group>"; };
 		613767601794C53E416F2D7F /* libPods-rnDeepLinking-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-rnDeepLinking-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +126,7 @@
 		13B07FAE1A68108700A75B9A /* rnDeepLinking */ = {
 			isa = PBXGroup;
 			children = (
+				46BA787D2A88E680002911FB /* rnDeepLinking.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -629,6 +631,7 @@
 			baseConfigurationReference = 0B737A52F5AC9EA9A1C39221 /* Pods-rnDeepLinking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = rnDeepLinking/rnDeepLinking.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = KV5Q2MF8Z5;
@@ -639,8 +642,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.thorugoh.--PRODUCT-NAME-rfc1034identifier-";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.thorugoh.rnDeepLinking;
+				PRODUCT_BUNDLE_IDENTIFIER = org.thorugoh.rnDeepLinking;
 				PRODUCT_NAME = rnDeepLinking;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -651,6 +653,7 @@
 			baseConfigurationReference = 587AFD061DBBE96E42580CF8 /* Pods-rnDeepLinking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = rnDeepLinking/rnDeepLinking.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KV5Q2MF8Z5;
 				INFOPLIST_FILE = rnDeepLinking/Info.plist;
@@ -660,8 +663,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.thorugoh.--PRODUCT-NAME-rfc1034identifier-";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.thorugoh.rnDeepLinking;
+				PRODUCT_BUNDLE_IDENTIFIER = org.thorugoh.rnDeepLinking;
 				PRODUCT_NAME = rnDeepLinking;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
