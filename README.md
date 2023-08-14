@@ -140,3 +140,5 @@ We need to add to the intent filter the `android:autoVerify="true"` and add `<da
     </intent-filter>
 </activity>
 ```
+
+![Alt text](image-1.png)
