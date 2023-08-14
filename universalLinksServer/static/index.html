@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function getMobileOperatingSystem() {
+      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      // Windows Phone must come first because its UA also contains "Android"
+      if (/windows phone/i.test(userAgent)) {
+          return "Windows Phone";
+      }
+
+      if (/android/i.test(userAgent)) {
+          return "Android";
+      }
+  
+      // iOS detection from: http://stackoverflow.com/a/9039885/177710
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          return "iOS";
+      }
+  
+      return "unknown";
+    }
+
+    switch(getMobileOperatingSystem()){
+      case "Android":
+        window.location.href = "http://play.google.com/store/search\?q\=maps\&c\=apps";
+      break;
+      case "iOS": 
+        window.location.href = "itms://itunes.apple.com/us/app/google-maps-transit-food/id585027354?mt=8"; 
+      break;
+      default: 
+        window.location.href = "http://play.google.com/store/search\?q\=maps\&c\=apps";
+    }
+  </script>
+</head>
+<body>
+  <h2>RN Deep Linking</h2>
+</body>
+</html>

@@ -1,36 +1,28 @@
-const server = Deno.listen({ port: 8000 });
+/* routes.js */
 
-for await (const conn of server) {
-  handleHttp(conn).catch(console.error)
-}
-
-async function handleHttp(conn:Deno.Conn) {
-  const httpCon = Deno.serveHttp(conn);
-  for await (const requestEvent of httpCon) {
-    const url = 
-    new URL(requestEvent.request.url);
-    const filepath = decodeURIComponent(url.pathname);
-
-    let file;
-    try{
-      file = await Deno.open("./universalLinksServer" + filepath, { read: true })
-    }catch(err){
-      const notFoundResponse = new Response("Not Found", { status: 404 })
-      await requestEvent.respondWith(notFoundResponse)
-      continue;
-    }
+import { Application, Router } from 'https://deno.land/x/oak/mod.ts'
 
 
-    // Build a readable stream so the file doesn't have to be fully loaded into
-    // memory while we send it
-    const readableStream = file.readable;
+const port = 8000
 
-    // Build and send the response
-    const response = new Response(readableStream, {
-      headers: {
-        'content-type': 'application/json'
-      }
-    });
-    await requestEvent.respondWith(response);
-  }
-}
+const app = new Application()
+const router = new Router()
+
+router.get('/screen/:id', async (context) => {
+  await context.send({ path: "/static/index.html", root: `${Deno.cwd()}/universalLinksServer` });
+})
+
+router.get('/.well-known/assetlinks.json', async (context) => {
+  context.response.headers.set("Content-Type", "application/json")
+  await context.send({ path: "/.well-known/assetlinks.json", root: `${Deno.cwd()}/universalLinksServer`, hidden: true })
+})
+
+router.get('/apple-app-site-association', async (context) => {
+    context.response.headers.set("Content-Type", "application/json")
+    await context.send({ path: "/apple-app-site-association", root: `${Deno.cwd()}/universalLinksServer` })
+})
+
+app.use(router.routes())
+app.use(router.allowedMethods())
+
+await app.listen({ port })

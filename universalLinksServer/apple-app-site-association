@@ -3,7 +3,7 @@
         "apps": [],
         "details": [{
             "appID": "KV5Q2MF8Z5.org.thorugoh.rnDeepLinking", // 9T4EDJ576V.au.com.example.myapp
-            "paths": ["/universal/*"] // you can use wildcard to accept any route like ["*"]
+            "paths": ["*"] // you can use wildcard to accept any route like ["*"]
             }
         ]
     }
