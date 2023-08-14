@@ -106,3 +106,37 @@ This will open app on second screen passing the param `id={001}`
 #### Android
 This will open app on second screen passing the param `id={002}`
 `adb shell am start -W -a android.intent.action.VIEW -d "deeplinking://screen/:002" com.rndeeplinking`
+
+
+#### Setup iOS Universal Links
+Add to `AppDelegate.m` the following code
+
+```objective-c
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity
+ restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+ return [RCTLinkingManager application:application
+                  continueUserActivity:userActivity
+                    restorationHandler:restorationHandler];
+}
+``````
+
+#### Setup Android App Links
+We need to add to the intent filter the `android:autoVerify="true"` and add `<data android:scheme="https" android:host="example.com" />` 
+```xml
+  <activity
+    android:name=".MainActivity"
+    android:launchMode="singleTask">
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+    <!-- The following intent filter was added -->
+    <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="https" android:host="example.com" />
+    </intent-filter>
+</activity>
+```
