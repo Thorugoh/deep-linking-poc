@@ -8,6 +8,10 @@ const port = 8000
 const app = new Application()
 const router = new Router()
 
+router.get('/', async (context) => {
+  await context.send({ path: "/static/index.html", root: `${Deno.cwd()}/universalLinksServer` });
+})
+
 router.get('/screen/:id', async (context) => {
   await context.send({ path: "/static/index.html", root: `${Deno.cwd()}/universalLinksServer` });
 })
