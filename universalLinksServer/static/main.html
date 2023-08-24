@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function getMobileOperatingSystem() {
+      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      // Windows Phone must come first because its UA also contains "Android"
+      if (/windows phone/i.test(userAgent)) {
+          return "Windows Phone";
+      }
+
+      if (/android/i.test(userAgent)) {
+          return "Android";
+      }
+  
+      // iOS detection from: http://stackoverflow.com/a/9039885/177710
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          return "iOS";
+      }
+  
+      return "unknown";
+    }
+  </script>
+</head>
+<body>
+  <h2>RN Deep Linking</h2>
+  <a href="https://rich-seal-43.deno.dev/screen/:002">Go to app</a>
+</body>
+</html>

@@ -9,7 +9,7 @@ const app = new Application()
 const router = new Router()
 
 router.get('/', async (context) => {
-  await context.send({ path: "/static/index.html", root: `${Deno.cwd()}/universalLinksServer` });
+  await context.send({ path: "/static/main.html", root: `${Deno.cwd()}/universalLinksServer` });
 })
 
 router.get('/screen/:id', async (context) => {
