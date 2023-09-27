@@ -126,6 +126,13 @@ Add to `AppDelegate.m` the following code
 }
 ``````
 
+#### Add Associated Domains
+To add your domain to the entitlement, click Add (+) at the bottom of the Domains table to add a placeholder domain. Replace the placeholder with the appropriate prefix for the service your app supports and your site’s domain. Make sure to only include the desired subdomain and the top-level domain. Don’t include path and query components or a trailing slash (/).
+
+![Alt text](image-2.png)
+
+[Apple Docs](https://developer.apple.com/documentation/xcode/supporting-associated-domains)
+
 #### Setup Android App Links
 We need to add to the intent filter the `android:autoVerify="true"` and add `<data android:scheme="https" android:host="example.com" />` 
 ```xml
